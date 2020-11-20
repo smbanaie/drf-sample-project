@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from rest_framework import generics
 from rest_framework import status
-
+from rest_framework import viewsets
 from .models import Poll, Choice
 from  .serializers import PollSerializer, ChoiceSerializer, VoteSerializer
 
@@ -23,14 +23,21 @@ from  .serializers import PollSerializer, ChoiceSerializer, VoteSerializer
 #         data = PollSerializer(poll).data
 #         return Response(data)
 
-class PollList(generics.ListCreateAPIView):
+# class PollList(generics.ListCreateAPIView):
+#     queryset = Poll.objects.all()
+#     serializer_class = PollSerializer
+
+
+# class PollDetail(generics.RetrieveDestroyAPIView):
+#     queryset = Poll.objects.all()
+#     serializer_class = PollSerializer
+
+
+
+class PollViewSet(viewsets.ModelViewSet):
     queryset = Poll.objects.all()
     serializer_class = PollSerializer
 
-
-class PollDetail(generics.RetrieveDestroyAPIView):
-    queryset = Poll.objects.all()
-    serializer_class = PollSerializer
 
 class ChoiceList(generics.ListCreateAPIView):
     def get_queryset(self):
